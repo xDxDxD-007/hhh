@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Определение нового пользователя</title>
+    <script>
+        // Функция для получения значения Cookie по имени
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        // Функция для установки Cookie
+        function setCookie(name, value, days) {
+            const d = new Date();
+            d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = "expires=" + d.toUTCString();
+            document.cookie = `${name}=${value}; ${expires}; path=/`;
+        }
+
+        // Проверяем, является ли пользователь новым
+        window.onload = function() {
+            const isNewUser = getCookie('isNewUser');
+            if (!isNewUser) {
+                // Этот пользователь новый
+                alert("Добро пожаловать на наш сайт! Вы новы здесь.");
+                setCookie('isNewUser', 'visited', 30); // Устанавливаем Cookie на 30 дней
+            } else {
+                // Этот пользователь уже посетил сайт
+                alert("Добро пожаловать обратно на наш сайт!");
+            }
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>
